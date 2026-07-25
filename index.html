@@ -16,7 +16,7 @@
         color: #e5e5e5;
     }
     .tool-title {
-        color: rgb(168, 100, 12)
+        color: rgb(168, 100, 12);
     }
     h1 {
         font-size: 24px;
@@ -86,13 +86,13 @@
         text-align: center;
     }
     .unit-divider {
-    display: block;
-    width: 3px;
-    min-width: 1px;
-    height: 38px;
-    background-color: rgb(224, 175, 129);
-    margin: 0 4px;
-}
+        display: block;
+        width: 3px;
+        min-width: 3px;
+        height: 38px;
+        background-color: rgb(224, 175, 129);
+        margin: 0 4px;
+    }
     /* LUMBER REFERENCE */
     .reference-table {
         width: 100%;
@@ -100,13 +100,16 @@
     }
     .reference-table td {
         border: 1px solid #555;
-        padding: 6px;
+        padding: 8px;
         text-align: center;
+        font-size: 18px;
+        vertical-align: middle;
     }
     .reference-label-nominal {
         background: #31744f;
         color: white;
         font-weight: bold;
+        font-size: 18px;
         width: 18%;
         text-align: left;
     }
@@ -114,8 +117,22 @@
         background: #813737;
         color: white;
         font-weight: bold;
+        font-size: 18px;
         width: 18%;
         text-align: left;
+    }
+    .us-size {
+        color: salmon;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .eu-size {
+        color: dodgerblue;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .actual-size {
+        font-size: 14px;
     }
     /* RESULTS */
     .result {
@@ -161,53 +178,53 @@
     /* CONVERSION TABLE */
     .conversion-table th {
         background: #075985;
-        color:white;
-        padding:8px;
-        font-size:larger;
-        border:1px solid black;
+        color: white;
+        padding: 8px;
+        font-size: larger;
+        border: 1px solid black;
     }
     /* BUTTONS */
     .arrow-button {
-        width:34px;
-        height:38px;
-        padding:0;
-        background:#333;
-        color:white;
-        border:none;
-        border-radius:5px;
-        font-size:16px;
+        width: 34px;
+        height: 38px;
+        padding: 0;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
     }
     .rounding-control {
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap:5px;
-        margin-top:4px;
-        font-size:14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 4px;
+        font-size: 14px;
     }
     .rounding-button {
-        background:#555;
-        color:white;
-        border:none;
-        border-radius:5px;
-        padding:4px 8px;
+        background: #555;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 4px 8px;
     }
     /* INCH + FRACTION */
     .inch-control {
-        display:flex;
-        gap:6px;
+        display: flex;
+        gap: 6px;
     }
     .inch-control input {
-        flex:1;
+        flex: 1;
     }
     .inch-control select {
-        width:auto;
-        min-width:80px;
+        width: auto;
+        min-width: 80px;
     }
     /* MOBILE */
     @media(min-width:600px) {
         .dimension-box {
-            grid-template-columns:repeat(3,1fr);
+            grid-template-columns: repeat(3,1fr);
         }
     }
 </style>
@@ -412,22 +429,38 @@
                `
 <table class="reference-table">
 <tr>
-<td class="reference-label-nominal">
-Nominal
-</td>
-<td>
-<span style="color: Salmon; font-weight: bold">US:</span> ${nominalW}" x ${nominalH}"
-<br>
-<span style="color: DodgerBlue; font-weight: bold">EU:</span> ${(nominalW * 25.4).toFixed(1)} x ${(nominalH * 25.4).toFixed(1)} mm
-</td>
-<td class="reference-label-actual">
-Actual
-</td>
-<td>
-<span style="color: Salmon; font-weight: bold">US:</span> ${lumber.actual.thickness.in}" x ${lumber.actual.width.in}"
-<br>
-<span style="color: DodgerBlue; font-weight: bold">EU:</span> ${lumber.actual.thickness.mm.toFixed(1)} x ${lumber.actual.width.mm.toFixed(1)} mm
-</td>
+    <td class="reference-label-nominal">
+        Nominal
+    </td>
+    <td>
+        <span class="us-size">
+            US:
+        </span>
+        ${nominalW}" x ${nominalH}"
+        <br>
+        <span class="eu-size">
+            EU:
+        </span>
+        ${(nominalW * 25.4).toFixed(1)} x ${(nominalH * 25.4).toFixed(1)} mm
+    </td>
+</tr>
+<tr>
+    <td class="reference-label-actual">
+        Actual
+    </td>
+    <td>
+        <span class="us-size">
+            US:
+        </span>
+        <span class="actual-size">
+            ${lumber.actual.thickness.in}" x ${lumber.actual.width.in}"
+        </span>
+        <br>
+        <span class="eu-size">
+            EU:
+        </span>
+        ${lumber.actual.thickness.mm.toFixed(1)} x ${lumber.actual.width.mm.toFixed(1)} mm
+    </td>
 </tr>
 </table>
 `;
