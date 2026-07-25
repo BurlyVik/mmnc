@@ -5,177 +5,219 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Lumber Dimension Converter</title>
    <style>
-       * {
-           box-sizing: border-box;
-       }
-       body {
-           font-family: Arial, Helvetica, sans-serif;
-           margin: 0;
-           padding: 12px;
-           background: #eeeeee;
-           color: #222;
-       }
-       h1 {
-           font-size: 24px;
-           margin: 10px 0 15px;
-       }
-       h2 {
-           font-size: 20px;
-           margin: 0 0 10px;
-       }
-       h3 {
-           font-size: 16px;
-           margin: 10px 0;
-       }
-       .card {
-           background: white;
-           padding: 12px;
-           margin-bottom: 12px;
-           border-radius: 10px;
-           box-shadow: 0 2px 5px rgba(0, 0, 0, .15);
-       }
-       label {
-           font-weight: bold;
-           display: block;
-           margin-top: 8px;
-       }
-       input,
-       select {
-           width: 100%;
-           padding: 10px;
-           font-size: 16px;
-           border-radius: 6px;
-           border: 1px solid #bbb;
-       }
-       select {
-           width: auto;
-           min-width: 90px;
-       }
-       .dimension-box {
-           display: grid;
-           grid-template-columns: 1fr;
-           gap: 12px;
-       }
-       .measure-control {
-           display: flex;
-           align-items: center;
-           gap: 5px;
-           margin-bottom: 6px;
-       }
-       .measure-control input {
-           text-align: center;
-       }
-      .unit-divider {
-          width: 1px;
-          height: 32px;
-          background-color: red;
-          display: inline-block;
-      }
-       .arrow-button {
-           width: 34px;
-           height: 38px;
-           padding: 0;
-           background: #333;
-           color: white;
-           border: none;
-           border-radius: 5px;
-           font-size: 16px;
-       }
-       .reference-table {
-           width: 100%;
-           font-size: 14px;
-       }
-       .reference-table td {
-           border: 1px solid #ccc;
-           padding: 6px;
-           text-align: center;
-       }
-       .reference-label {
-           background: #eeeeee;
-           font-weight: bold;
-           width: 18%;
-          text-align: left;
-       }
-       .result {
-           margin-top: 10px;
-           background: #f8fafc;
-           padding: 0;
-           border-radius: 8px;
-       }
-       .key {
-           background: white;
-           padding: 12px;
-           border-radius: 10px;
-           margin-bottom: 12px;
-       }
-       table {
-           width: 100%;
-           border-collapse: collapse;
-           font-size: 14px;
-       }
-       th {
-           background: black;
-           color: white;
-           padding: 8px;
-           border: 1px solid black;
-       }
-       td {
-           border: 1px solid #ccc;
-           padding: 8px;
-           text-align: center;
-       }
-       td.inch {
-           background: #ffd8a8;
-       }
-       td.mm {
-           background: #c8f7c5;
-       }
-       .rounding-control {
-           display: flex;
-           align-items: center;
-           justify-content: center;
-           gap: 5px;
-           margin-top: 4px;
-           font-size: 14px;
-       }
-       .rounding-button {
-           background: #555;
-           color: white;
-           border: none;
-           border-radius: 5px;
-           padding: 4px 8px;
-       }
-       @media(min-width:600px) {
-           .dimension-box {
-               grid-template-columns: repeat(3, 1fr);
-           }
-       }
-       .inch-control {
-           display: flex;
-           gap: 6px;
-       }
-       .inch-control input {
-           flex: 1;
-       }
-       .inch-control select {
-           width: auto;
-           min-width: 80px;
-       }
-       .conversion-table th {
-           background: rgb(16, 117, 199);
-           color: white;
-           padding: 8px;
-           font-size: larger;
-           border: 1px solid black;
-       }
-   </style>
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 12px;
+        background: #121212;
+        color: #e5e5e5;
+    }
+    .tool-title {
+        color: rgb(168, 100, 12)
+    }
+    h1 {
+        font-size: 24px;
+        margin: 10px 0 15px;
+        color: #ffffff;
+    }
+    h2 {
+        font-size: 20px;
+        margin: 0 0 10px;
+        color: #60a5fa;
+    }
+    h3 {
+        font-size: 16px;
+        margin: 10px 0;
+        color: #e5e5e5;
+    }
+    /* CARDS */
+    .card {
+        background: #1e1e1e;
+        padding: 12px;
+        margin-bottom: 12px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.6);
+    }
+    /* LABELS */
+    label {
+        font-weight: bold;
+        display: block;
+        margin-top: 8px;
+        color: #a7a4a4;
+    }
+    /* INPUTS */
+    input,
+    select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 6px;
+        border: 1px solid #555;
+        background: #2b2b2b;
+        color: white;
+    }
+    input::placeholder {
+        color: #999;
+    }
+    select {
+        width: auto;
+        min-width: 90px;
+    }
+    select option {
+        background: #2b2b2b;
+        color: white;
+    }
+    /* MEASUREMENTS */
+    .dimension-box {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .measure-control {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+    }
+    .measure-control input {
+        text-align: center;
+    }
+    .unit-divider {
+    display: block;
+    width: 3px;
+    min-width: 1px;
+    height: 38px;
+    background-color: rgb(224, 175, 129);
+    margin: 0 4px;
+}
+    /* LUMBER REFERENCE */
+    .reference-table {
+        width: 100%;
+        font-size: 14px;
+    }
+    .reference-table td {
+        border: 1px solid #555;
+        padding: 6px;
+        text-align: center;
+    }
+    .reference-label-nominal {
+        background: #31744f;
+        color: white;
+        font-weight: bold;
+        width: 18%;
+        text-align: left;
+    }
+    .reference-label-actual {
+        background: #813737;
+        color: white;
+        font-weight: bold;
+        width: 18%;
+        text-align: left;
+    }
+    /* RESULTS */
+    .result {
+        margin-top: 10px;
+        background: #181818;
+        padding: 0;
+        border-radius: 8px;
+        color: #e5e5e5;
+    }
+    /* MEASUREMENT KEY */
+    .key {
+        background: #1e1e1e;
+        padding: 12px;
+        border-radius: 10px;
+        margin-bottom: 12px;
+    }
+    /* TABLES */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+    th {
+        background: #000;
+        color: white;
+        padding: 8px;
+        border: 1px solid #333;
+    }
+    td {
+        border: 1px solid #555;
+        padding: 8px;
+        text-align: center;
+    }
+    /* LUMBER COLOR CODING */
+    td.inch {
+        background: #8a5a1f;
+        color: white;
+    }
+    td.mm {
+        background: #27632a;
+        color: white;
+    }
+    /* CONVERSION TABLE */
+    .conversion-table th {
+        background: #075985;
+        color:white;
+        padding:8px;
+        font-size:larger;
+        border:1px solid black;
+    }
+    /* BUTTONS */
+    .arrow-button {
+        width:34px;
+        height:38px;
+        padding:0;
+        background:#333;
+        color:white;
+        border:none;
+        border-radius:5px;
+        font-size:16px;
+    }
+    .rounding-control {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:5px;
+        margin-top:4px;
+        font-size:14px;
+    }
+    .rounding-button {
+        background:#555;
+        color:white;
+        border:none;
+        border-radius:5px;
+        padding:4px 8px;
+    }
+    /* INCH + FRACTION */
+    .inch-control {
+        display:flex;
+        gap:6px;
+    }
+    .inch-control input {
+        flex:1;
+    }
+    .inch-control select {
+        width:auto;
+        min-width:80px;
+    }
+    /* MOBILE */
+    @media(min-width:600px) {
+        .dimension-box {
+            grid-template-columns:repeat(3,1fr);
+        }
+    }
+</style>
 </head>
 <body>
-   <h1>
+   <h1 class="tool-title">
        Lumber Dimension Converter
    </h1>
    <div class="card">
-       <h2 style="padding-top: 7px; color: Blue">
+       <h2 style="padding-top: 7px; color: rgb(42, 174, 235)">
            Custom Measurement Converter
        </h2>
        <label style="padding-bottom: 7px;">
@@ -185,7 +227,7 @@
        </select>
        <div id="lumberReference" class="result">
        </div>
-       <h2 style="padding-top: 7px; color: Blue">
+       <h2 style="padding-top: 7px; color: rgb(224, 107, 61)">
            Enter Custom Measurements
        </h2>
        <div class="dimension-box">
@@ -284,7 +326,7 @@
        </div>
    </div>
    <div class="key">
-       <h3>
+       <h3 style="color: #a7a4a4;">
            Measurement Key
        </h3>
        <table>
@@ -307,7 +349,7 @@
        </table>
    </div>
    <div class="card">
-       <h2 style="padding-top: 7px; color: Blue">
+       <h2 style="padding-top: 7px; color: rgb(255, 136, 0)">
            Lumber Dimensions (Nominal => Actual)
        </h2>
        <table id="lumberTable">
@@ -370,21 +412,21 @@
                `
 <table class="reference-table">
 <tr>
-<td class="reference-label">
+<td class="reference-label-nominal">
 Nominal
 </td>
 <td>
-${nominalW}" x ${nominalH}"
+<span style="color: Salmon; font-weight: bold">US:</span> ${nominalW}" x ${nominalH}"
 <br>
-${(nominalW * 25.4).toFixed(1)} x ${(nominalH * 25.4).toFixed(1)} mm
+<span style="color: DodgerBlue; font-weight: bold">EU:</span> ${(nominalW * 25.4).toFixed(1)} x ${(nominalH * 25.4).toFixed(1)} mm
 </td>
-<td class="reference-label">
+<td class="reference-label-actual">
 Actual
 </td>
 <td>
-${lumber.actual.thickness.in}" x ${lumber.actual.width.in}"
+<span style="color: Salmon; font-weight: bold">US:</span> ${lumber.actual.thickness.in}" x ${lumber.actual.width.in}"
 <br>
-${lumber.actual.thickness.mm.toFixed(1)} x ${lumber.actual.width.mm.toFixed(1)} mm
+<span style="color: DodgerBlue; font-weight: bold">EU:</span> ${lumber.actual.thickness.mm.toFixed(1)} x ${lumber.actual.width.mm.toFixed(1)} mm
 </td>
 </tr>
 </table>
