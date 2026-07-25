@@ -189,9 +189,8 @@
                <div class="measure-control">
                    <input id="heightMM" type="number" step="0.01" placeholder="mm"
                        oninput="mmChanged('heightMM','heightIN','heightFraction')" tabindex="1">
-               </div>
-               <div class="measure-control">
-                   <input id="heightIN" type="number" placeholder="in" oninput="inChanged('heightIN','heightMM')"
+               
+                   <input id="heightIN" type="text" placeholder="in" oninput="inChanged('heightIN','heightMM')"
                        tabindex="4">
                    <select id="heightFraction" onchange="fractionChanged('heightIN','heightMM','heightFraction')"
                        tabindex="5">
@@ -220,9 +219,7 @@
                <div class="measure-control">
                    <input id="widthMM" type="number" step="0.01" placeholder="mm"
                        oninput="mmChanged('widthMM','widthIN','widthFraction')" tabindex="2">
-               </div>
-               <div class="measure-control">
-                   <input id="widthIN" type="number" placeholder="in"
+                   <input id="widthIN" type="text" placeholder="in"
                        oninput="inChanged('widthIN','widthMM','widthFraction')" tabindex="6">
                    <select id="widthFraction" onchange="fractionChanged('widthIN','widthMM','widthFraction')"
                        tabindex="7">
@@ -251,9 +248,8 @@
                <div class="measure-control">
                    <input id="depthMM" type="number" step="0.01" placeholder="mm"
                        oninput="mmChanged('depthMM','depthIN','depthFraction')" tabindex="3">
-               </div>
-               <div class="measure-control">
-                   <input id="depthIN" type="number" placeholder="in"
+
+                   <input id="depthIN" type="text" placeholder="in"
                        oninput="inChanged('depthIN','depthMM','depthFraction')" tabindex="8">
                    <select id="depthFraction" onchange="fractionChanged('heightIN','heightMM','heightFraction')"
                        tabindex="9">
