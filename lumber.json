@@ -1,0 +1,292 @@
+[
+  {
+    "nominalWoodSizes": [
+      {
+        "nominal": "1x2",
+        "actual": {
+          "thickness": {
+            "in": 0.75,
+            "mm": 19.05
+          },
+          "width": {
+            "in": 1.5,
+            "mm": 38.10
+          }
+        }
+      },
+      {
+        "nominal": "1x3",
+        "actual": {
+          "thickness": {
+            "in": 0.75,
+            "mm": 19.05
+          },
+          "width": {
+            "in": 2.5,
+            "mm": 63.50
+          }
+        }
+      },
+      {
+        "nominal": "1x4",
+        "actual": {
+          "thickness": {
+            "in": 0.75,
+            "mm": 19.05
+          },
+          "width": {
+            "in": 3.5,
+            "mm": 88.90
+          }
+        }
+      },
+      {
+        "nominal": "1x5",
+        "actual": {
+          "thickness": {
+            "in": 0.75,
+            "mm": 19.05
+          },
+          "width": {
+            "in": 4.5,
+            "mm": 114.30
+          }
+        }
+      },
+      {
+        "nominal": "1x6",
+        "actual": {
+          "thickness": {
+            "in": 0.75,
+            "mm": 19.05
+          },
+          "width": {
+            "in": 5.5,
+            "mm": 139.70
+          }
+        }
+      },
+      {
+        "nominal": "1x8",
+        "actual": {
+          "thickness": {
+            "in": 0.75,
+            "mm": 19.05
+          },
+          "width": {
+            "in": 7.25,
+            "mm": 184.15
+          }
+        }
+      },
+      {
+        "nominal": "1x10",
+        "actual": {
+          "thickness": {
+            "in": 0.75,
+            "mm": 19.05
+          },
+          "width": {
+            "in": 9.25,
+            "mm": 234.95
+          }
+        }
+      },
+      {
+        "nominal": "1x12",
+        "actual": {
+          "thickness": {
+            "in": 0.75,
+            "mm": 19.05
+          },
+          "width": {
+            "in": 11.25,
+            "mm": 285.75
+          }
+        }
+      },
+      {
+        "nominal": "2x2",
+        "actual": {
+          "thickness": {
+            "in": 1.5,
+            "mm": 38.10
+          },
+          "width": {
+            "in": 1.5,
+            "mm": 38.10
+          }
+        }
+      },
+      {
+        "nominal": "2x3",
+        "actual": {
+          "thickness": {
+            "in": 1.5,
+            "mm": 38.10
+          },
+          "width": {
+            "in": 2.5,
+            "mm": 63.50
+          }
+        }
+      },
+      {
+        "nominal": "2x4",
+        "actual": {
+          "thickness": {
+            "in": 1.5,
+            "mm": 38.10
+          },
+          "width": {
+            "in": 3.5,
+            "mm": 88.90
+          }
+        }
+      },
+      {
+        "nominal": "2x5",
+        "actual": {
+          "thickness": {
+            "in": 1.5,
+            "mm": 38.10
+          },
+          "width": {
+            "in": 4.5,
+            "mm": 114.30
+          }
+        }
+      },
+      {
+        "nominal": "2x6",
+        "actual": {
+          "thickness": {
+            "in": 1.5,
+            "mm": 38.10
+          },
+          "width": {
+            "in": 5.5,
+            "mm": 139.70
+          }
+        }
+      },
+      {
+        "nominal": "2x8",
+        "actual": {
+          "thickness": {
+            "in": 1.5,
+            "mm": 38.10
+          },
+          "width": {
+            "in": 7.25,
+            "mm": 184.15
+          }
+        }
+      },
+      {
+        "nominal": "2x10",
+        "actual": {
+          "thickness": {
+            "in": 1.5,
+            "mm": 38.10
+          },
+          "width": {
+            "in": 9.25,
+            "mm": 234.95
+          }
+        }
+      },
+      {
+        "nominal": "2x12",
+        "actual": {
+          "thickness": {
+            "in": 1.5,
+            "mm": 38.10
+          },
+          "width": {
+            "in": 11.25,
+            "mm": 285.75
+          }
+        }
+      },
+      {
+        "nominal": "3x3",
+        "actual": {
+          "thickness": {
+            "in": 2.5,
+            "mm": 63.50
+          },
+          "width": {
+            "in": 2.5,
+            "mm": 63.50
+          }
+        }
+      },
+      {
+        "nominal": "3x4",
+        "actual": {
+          "thickness": {
+            "in": 2.5,
+            "mm": 63.50
+          },
+          "width": {
+            "in": 3.5,
+            "mm": 88.90
+          }
+        }
+      },
+      {
+        "nominal": "3x6",
+        "actual": {
+          "thickness": {
+            "in": 2.5,
+            "mm": 63.50
+          },
+          "width": {
+            "in": 5.5,
+            "mm": 139.70
+          }
+        }
+      },
+      {
+        "nominal": "4x4",
+        "actual": {
+          "thickness": {
+            "in": 3.5,
+            "mm": 88.90
+          },
+          "width": {
+            "in": 3.5,
+            "mm": 88.90
+          }
+        }
+      },
+      {
+        "nominal": "4x6",
+        "actual": {
+          "thickness": {
+            "in": 3.5,
+            "mm": 88.90
+          },
+          "width": {
+            "in": 5.5,
+            "mm": 139.70
+          }
+        }
+      },
+      {
+        "nominal": "6x6",
+        "actual": {
+          "thickness": {
+            "in": 5.5,
+            "mm": 139.70
+          },
+          "width": {
+            "in": 5.5,
+            "mm": 139.70
+          }
+        }
+      }
+    ]
+  }
+]

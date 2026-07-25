@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Lumber Dimension Converter</title>
+   <style>
+       * {
+           box-sizing: border-box;
+       }
+       body {
+           font-family: Arial, Helvetica, sans-serif;
+           margin: 0;
+           padding: 12px;
+           background: #eeeeee;
+           color: #222;
+       }
+       h1 {
+           font-size: 24px;
+           margin: 10px 0 15px;
+       }
+       h2 {
+           font-size: 20px;
+           margin: 0 0 10px;
+       }
+       h3 {
+           font-size: 16px;
+           margin: 10px 0;
+       }
+       .card {
+           background: white;
+           padding: 12px;
+           margin-bottom: 12px;
+           border-radius: 10px;
+           box-shadow: 0 2px 5px rgba(0, 0, 0, .15);
+       }
+       label {
+           font-weight: bold;
+           display: block;
+           margin-top: 8px;
+       }
+       input,
+       select {
+           width: 100%;
+           padding: 10px;
+           font-size: 16px;
+           border-radius: 6px;
+           border: 1px solid #bbb;
+       }
+       select {
+           width: auto;
+           min-width: 90px;
+       }
+       .dimension-box {
+           display: grid;
+           grid-template-columns: 1fr;
+           gap: 12px;
+       }
+       .measure-control {
+           display: flex;
+           align-items: center;
+           gap: 5px;
+           margin-bottom: 6px;
+       }
+       .measure-control input {
+           text-align: center;
+       }
+       .arrow-button {
+           width: 34px;
+           height: 38px;
+           padding: 0;
+           background: #333;
+           color: white;
+           border: none;
+           border-radius: 5px;
+           font-size: 16px;
+       }
+       .reference-table {
+           width: 100%;
+           font-size: 14px;
+       }
+       .reference-table td {
+           border: 1px solid #ccc;
+           padding: 6px;
+           text-align: center;
+       }
+       .reference-label {
+           background: #eeeeee;
+           font-weight: bold;
+           width: 18%;
+       }
+       .result {
+           margin-top: 10px;
+           background: #f8fafc;
+           padding: 0;
+           border-radius: 8px;
+       }
+       .key {
+           background: white;
+           padding: 12px;
+           border-radius: 10px;
+           margin-bottom: 12px;
+       }
+       table {
+           width: 100%;
+           border-collapse: collapse;
+           font-size: 14px;
+       }
+       th {
+           background: black;
+           color: white;
+           padding: 8px;
+           border: 1px solid black;
+       }
+       td {
+           border: 1px solid #ccc;
+           padding: 8px;
+           text-align: center;
+       }
+       td.inch {
+           background: #ffd8a8;
+       }
+       td.mm {
+           background: #c8f7c5;
+       }
+       .rounding-control {
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           gap: 5px;
+           margin-top: 4px;
+           font-size: 14px;
+       }
+       .rounding-button {
+           background: #555;
+           color: white;
+           border: none;
+           border-radius: 5px;
+           padding: 4px 8px;
+       }
+       @media(min-width:600px) {
+           .dimension-box {
+               grid-template-columns: repeat(3, 1fr);
+           }
+       }
+       .inch-control {
+           display: flex;
+           gap: 6px;
+       }
+       .inch-control input {
+           flex: 1;
+       }
+       .inch-control select {
+           width: auto;
+           min-width: 80px;
+       }
+       .conversion-table th {
+           background: rgb(16, 117, 199);
+           color: white;
+           padding: 8px;
+           font-size: larger;
+           border: 1px solid black;
+       }
+   </style>
+</head>
+<body>
+   <h1>
+       Lumber Dimension Converter
+   </h1>
+   <div class="card">
+       <h2 style="padding-top: 7px; color: Blue">
+           Custom Measurement Converter
+       </h2>
+       <label style="padding-bottom: 7px;">
+           Lumber Reference
+       </label>
+       <select id="sizeSelect" onchange="showLumberReference()">
+       </select>
+       <div id="lumberReference" class="result">
+       </div>
+       <h2 style="padding-top: 7px; color: Blue">
+           Enter Custom Measurements
+       </h2>
+       <div class="dimension-box">
+           <div>
+               <label style="padding-bottom: 7px;">
+                   Height (H)
+               </label>
+               <div class="measure-control">
+                   <input id="heightMM" type="number" step="0.01" placeholder="mm"
+                       oninput="mmChanged('heightMM','heightIN','heightFraction')" tabindex="1">
+               </div>
+               <div class="measure-control">
+                   <input id="heightIN" type="text" placeholder="in" oninput="inChanged('heightIN','heightMM')"
+                       tabindex="4">
+                   <select id="heightFraction" onchange="fractionChanged('heightIN','heightMM','heightFraction')"
+                       tabindex="5">
+                       <option value="0.0625">1/16</option>
+                       <option value="0.125">1/8</option>
+                       <option value="0.1875">3/16</option>
+                       <option value="0.25">1/4</option>
+                       <option value="0.3125">5/16</option>
+                       <option value="0.375">3/8</option>
+                       <option value="0.4375">7/16</option>
+                       <option value="0.5">1/2</option>
+                       <option value="0.5625">9/16</option>
+                       <option value="0.625">5/8</option>
+                       <option value="0.6875">11/16</option>
+                       <option value="0.75">3/4</option>
+                       <option value="0.8125">13/16</option>
+                       <option value="0.875">7/8</option>
+                       <option value="0.9375">15/16</option>
+                   </select>
+               </div>
+           </div>
+           <div>
+               <label style="padding-bottom: 7px;">
+                   Width (W)
+               </label>
+               <div class="measure-control">
+                   <input id="widthMM" type="number" step="0.01" placeholder="mm"
+                       oninput="mmChanged('widthMM','widthIN','widthFraction')" tabindex="2">
+               </div>
+               <div class="measure-control">
+                   <input id="widthIN" type="text" placeholder="in"
+                       oninput="inChanged('widthIN','widthMM','widthFraction')" tabindex="6">
+                   <select id="widthFraction" onchange="fractionChanged('widthIN','widthMM','widthFraction')"
+                       tabindex="7">
+                       <option value="0.0625">1/16</option>
+                       <option value="0.125">1/8</option>
+                       <option value="0.1875">3/16</option>
+                       <option value="0.25">1/4</option>
+                       <option value="0.3125">5/16</option>
+                       <option value="0.375">3/8</option>
+                       <option value="0.4375">7/16</option>
+                       <option value="0.5">1/2</option>
+                       <option value="0.5625">9/16</option>
+                       <option value="0.625">5/8</option>
+                       <option value="0.6875">11/16</option>
+                       <option value="0.75">3/4</option>
+                       <option value="0.8125">13/16</option>
+                       <option value="0.875">7/8</option>
+                       <option value="0.9375">15/16</option>
+                   </select>
+               </div>
+           </div>
+           <div>
+               <label style="padding-bottom: 7px;">
+                   Length (D)
+               </label>
+               <div class="measure-control">
+                   <input id="depthMM" type="number" step="0.01" placeholder="mm"
+                       oninput="mmChanged('depthMM','depthIN','depthFraction')" tabindex="3">
+               </div>
+               <div class="measure-control">
+                   <input id="depthIN" type="text" placeholder="in"
+                       oninput="inChanged('depthIN','depthMM','depthFraction')" tabindex="8">
+                   <select id="depthFraction" onchange="fractionChanged('heightIN','heightMM','heightFraction')"
+                       tabindex="9">
+                       <option value="0.0625">1/16</option>
+                       <option value="0.125">1/8</option>
+                       <option value="0.1875">3/16</option>
+                       <option value="0.25">1/4</option>
+                       <option value="0.3125">5/16</option>
+                       <option value="0.375">3/8</option>
+                       <option value="0.4375">7/16</option>
+                       <option value="0.5">1/2</option>
+                       <option value="0.5625">9/16</option>
+                       <option value="0.625">5/8</option>
+                       <option value="0.6875">11/16</option>
+                       <option value="0.75">3/4</option>
+                       <option value="0.8125">13/16</option>
+                       <option value="0.875">7/8</option>
+                       <option value="0.9375">15/16</option>
+                   </select>
+               </div>
+           </div>
+       </div>
+       <div id="result" class="result">
+       </div>
+   </div>
+   <div class="key">
+       <h3>
+           Measurement Key
+       </h3>
+       <table>
+           <tr>
+               <td>
+                   25.4 mm
+               </td>
+               <td>
+                   1 inch
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   304.8 mm
+               </td>
+               <td>
+                   1 foot
+               </td>
+           </tr>
+       </table>
+   </div>
+   <div class="card">
+       <h2 style="padding-top: 7px; color: Blue">
+           Lumber Dimensions (Nominal => Actual)
+       </h2>
+       <table id="lumberTable">
+           <thead>
+               <tr>
+                   <th>
+                       Nominal
+                   </th>
+                   <th>
+                       Thickness (in)
+                   </th>
+                   <th>
+                       Width (in)
+                   </th>
+                   <th>
+                       Thickness (mm)
+                   </th>
+                   <th>
+                       Width (mm)
+                   </th>
+               </tr>
+           </thead>
+           <tbody>
+           </tbody>
+       </table>
+   </div>
+   <script>
+       let lumberData = [];
+       fetch("lumber.json")
+           .then(response => response.json())
+           .then(data => {
+               lumberData = data[0].nominalWoodSizes;
+               loadDropdown();
+               loadTable();
+               showLumberReference();
+           });
+       function loadDropdown() {
+           let select = document.getElementById("sizeSelect");
+           lumberData.forEach((item, index) => {
+               let option = document.createElement("option");
+               option.value = index;
+               option.text = item.nominal;
+               select.appendChild(option);
+           });
+       }
+       function showLumberReference() {
+           let index =
+               document.getElementById("sizeSelect").value;
+           let lumber =
+               lumberData[index];
+           if (!lumber)
+               return;
+           let parts =
+               lumber.nominal.split("x");
+           let nominalW =
+               Number(parts[0]);
+           let nominalH =
+               Number(parts[1]);
+           document.getElementById("lumberReference").innerHTML =
+               `
+<table class="reference-table">
+<tr>
+<td class="reference-label">
+Nominal
+</td>
+<td>
+${nominalW}" x ${nominalH}"
+<br>
+${(nominalW * 25.4).toFixed(1)} x ${(nominalH * 25.4).toFixed(1)} mm
+</td>
+<td class="reference-label">
+Actual
+</td>
+<td>
+${lumber.actual.thickness.in}" x ${lumber.actual.width.in}"
+<br>
+${lumber.actual.thickness.mm.toFixed(1)} x ${lumber.actual.width.mm.toFixed(1)} mm
+</td>
+</tr>
+</table>
+`;
+       }
+       function loadTable() {
+           let tbody =
+               document.querySelector("#lumberTable tbody");
+           lumberData.forEach(item => {
+               let row =
+                   tbody.insertRow();
+               row.innerHTML =
+                   `
+<td>
+${item.nominal}
+</td>
+<td class="inch">
+${item.actual.thickness.in}
+</td>
+<td class="inch">
+${item.actual.width.in}
+</td>
+<td class="mm">
+${item.actual.thickness.mm}
+</td>
+<td class="mm">
+${item.actual.width.mm}
+</td>
+`;
+           });
+       }
+       function mmChanged(mmID, inID, fractionID) {
+           let mm =
+               Number(document.getElementById(mmID).value);
+           if (!isNaN(mm)) {
+               let inches = mm / 25.4;
+               document.getElementById(inID).value =
+                   inches.toFixed(3);
+               updateFractionDropdown(
+                   inches,
+                   fractionID
+               );
+           }
+           updateConversion();
+       }
+       function parseFraction(value) {
+           value =
+               value.trim();
+           if (value === "")
+               return 0;
+           let total = 0;
+           let parts =
+               value.split(" ");
+           parts.forEach(part => {
+               if (part.includes("/")) {
+                   let fraction =
+                       part.split("/");
+                   total +=
+                       Number(fraction[0]) /
+                       Number(fraction[1]);
+               }
+               else {
+                   total += Number(part);
+               }
+           });
+           return total;
+       }
+       function inChanged(inID, mmID) {
+           let inches =
+               parseFraction(
+                   document.getElementById(inID).value
+               );
+           if (!isNaN(inches)) {
+               document.getElementById(mmID).value =
+                   (inches * 25.4).toFixed(2);
+           }
+           updateConversion();
+       }
+       function fractionChanged(inID, mmID, fractionID) {
+           let fractionValue =
+               document.getElementById(fractionID).value;
+           let inches =
+               parseFloat(document.getElementById(inID).value) || 0;
+           let whole =
+               Math.floor(inches);
+           let fraction =
+               Number(fractionValue);
+           let totalInches =
+               whole + fraction;
+           document.getElementById(inID).value =
+               totalInches.toFixed(3);
+           document.getElementById(mmID).value =
+               (totalInches * 25.4).toFixed(2);
+           updateConversion();
+       }
+       function decimalToFraction(decimal) {
+           let sixteenths =
+               Math.round(decimal * 16);
+           let whole =
+               Math.floor(sixteenths / 16);
+           let remainder =
+               sixteenths % 16;
+           if (remainder === 0) {
+               return whole.toString();
+           }
+           let numerator =
+               remainder;
+           let denominator =
+               16;
+           while (numerator % 2 === 0) {
+               numerator /= 2;
+               denominator /= 2;
+           }
+           if (whole > 0) {
+               return whole + " " + numerator + "/" + denominator;
+           }
+           return numerator + "/" + denominator;
+       }
+       function updateFractionDropdown(inches, selectID) {
+           let fractions =
+               [
+                   {value: 0, text: "0"},
+                   {value: 0.0625, text: "1/16"},
+                   {value: 0.125, text: "1/8"},
+                   {value: 0.1875, text: "3/16"},
+                   {value: 0.25, text: "1/4"},
+                   {value: 0.3125, text: "5/16"},
+                   {value: 0.375, text: "3/8"},
+                   {value: 0.4375, text: "7/16"},
+                   {value: 0.5, text: "1/2"},
+                   {value: 0.5625, text: "9/16"},
+                   {value: 0.625, text: "5/8"},
+                   {value: 0.6875, text: "11/16"},
+                   {value: 0.75, text: "3/4"},
+                   {value: 0.8125, text: "13/16"},
+                   {value: 0.875, text: "7/8"},
+                   {value: 0.9375, text: "15/16"}
+               ];
+           let whole =
+               Math.floor(inches);
+           let decimal =
+               inches - whole;
+           let closest =
+               fractions.reduce((prev, current) =>
+                   Math.abs(current.value - decimal) <
+                       Math.abs(prev.value - decimal)
+                       ? current
+                       : prev
+               );
+           document.getElementById(selectID).value =
+               closest.value;
+       }
+       function formatFeetInches(mm) {
+           let totalInches =
+               Math.round((mm / 25.4) * 16) / 16;
+           let feet =
+               Math.floor(totalInches / 12);
+           let inches =
+               totalInches - (feet * 12);
+           let inchText =
+               decimalToFraction(inches);
+           if (feet > 0) {
+               return feet + "' " + inchText + '"';
+           }
+           return inchText + '"';
+       }
+       function updateConversion() {
+           let values =
+               [
+                   {
+                       name: "Height",
+                       mm: Number(document.getElementById("heightMM").value)
+                   },
+                   {
+                       name: "Width",
+                       mm: Number(document.getElementById("widthMM").value)
+                   },
+                   {
+                       name: "Length",
+                       mm: Number(document.getElementById("depthMM").value)
+                   }
+               ];
+           let html =
+               `
+<h3>
+Conversion
+</h3>
+<table class="conversion-table">
+<tr>
+<th>
+Dimension
+</th>
+<th>
+mm
+</th>
+<th>
+inches
+</th>
+<th>
+feet / inches
+</th>
+</tr>
+`;
+           let hasValue = false;
+           values.forEach(v => {
+               if (v.mm > 0) {
+                   hasValue = true;
+                   let inches =
+                       v.mm / 25.4;
+                   html +=
+                       `
+<tr>
+<td>
+${v.name}
+</td>
+<td>
+${v.mm.toFixed(2)}
+</td>
+<td>
+${inches.toFixed(3)}"
+</td>
+<td>
+${formatFeetInches(v.mm)}
+</td>
+</tr>
+`;
+               }
+           });
+           html +=
+               `
+</table>
+`;
+           if (hasValue) {
+               document.getElementById("result").innerHTML =
+                   html;
+           }
+           else {
+               document.getElementById("result").innerHTML =
+                   "";
+           }
+       }
+       function adjustValue(id, direction) {
+           let input =
+               document.getElementById(id);
+           let value;
+           if (id.includes("IN")) {
+               value =
+                   parseFraction(input.value);
+               value += direction;
+               input.value =
+                   value;
+           }
+           else {
+               value =
+                   Number(input.value) || 0;
+               value += direction;
+               input.value =
+                   value.toFixed(2);
+           }
+           input.dispatchEvent(new Event("input"));
+       }
+   </script>
+</body>
+</html>
